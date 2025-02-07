@@ -1,0 +1,29 @@
+name: Python CI with uv
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Gets your code from GitHub
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5  # Installs uv package manager
+
+      - name: Set up Python
+        run: uv python install  # Installs Python version from pyproject.toml or .python-version
+
+      - name: Install Dependencies
+        run: uv pip install -r requirements.txt  # Installs dependencies
+
+      - name: Run Python Script
+        run: python script.py  # Runs script.py
