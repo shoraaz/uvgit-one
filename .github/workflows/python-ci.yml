@@ -1,22 +1,36 @@
+name: Python CI with uv
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4  # Check out code
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Gets your code from GitHub
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5  # Install uv package manager
+        uses: astral-sh/setup-uv@v5  # Installs uv package manager
 
       - name: Set up Python
-        run: uv python install  # Install Python
+        run: uv python install  # Installs Python version from pyproject.toml or .python-version
 
       - name: Create Virtual Environment
-        run: uv venv .venv  # Create a virtual environment
+        run: uv venv .venv  # Creates a virtual environment
 
       - name: Activate Virtual Environment and Install Dependencies
         run: |
-          source .venv/bin/activate  # Activate virtual environment
-          uv pip install -r requirements.txt  # Install dependencies
+          source .venv/bin/activate  # Activates virtual environment
+          uv pip install -r requirements.txt  # Installs dependencies
 
-      - name: Run
+      - name: Run Python Script
+        run: |
+          source .venv/bin/activate  # Activates before running script
+          python script.py  # Runs script
