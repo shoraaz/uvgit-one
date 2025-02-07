@@ -24,3 +24,5 @@ print(filtered_df)
 
 print("\nGrouped DataFrame (mean Age and Salary by City):")
 print(grouped_df)
+
+print ("hello")
